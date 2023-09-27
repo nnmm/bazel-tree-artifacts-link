@@ -1,0 +1,22 @@
+load(":codegen.bzl", "codegen")
+load(":relink.bzl", "relink")
+
+py_binary(
+    name = "generator",
+    srcs = ["generator.py"]
+)
+
+codegen(
+    name = "src"
+)
+
+cc_library(
+    name = "bib",
+    srcs = [":src"]
+)
+
+
+relink(
+    name = "relinked",
+    lib = ":bib",
+)
